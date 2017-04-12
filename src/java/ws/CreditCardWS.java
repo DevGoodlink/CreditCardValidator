@@ -85,12 +85,15 @@ public class CreditCardWS {
         HttpServletRequest req = (HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST); 
         mouchard.setIp(req.getRemoteAddr()); 
         ejbRef.create(entity);
-        Object[] lstu = userFacade.findAll().toArray();
+        List<User> lstu = new ArrayList();
+        
+        lstu = userFacade.findAll();
         for(Object u : lstu){
             User uo=(User)u;
             if(uo.getToken().equals(token))
                 if(entity.getCn()%2==0){
                     mouchard.setResult(true);
+                    mouchard.setDescription("carte valide");
                     this.mouchardFacade.create(mouchard);
                     return true;
                 }
