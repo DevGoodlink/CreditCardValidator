@@ -4,30 +4,31 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Register</title>
     </h:head>
     <h:body>
         <f:view>
-
-
             <h:form>
-                <h1><h:outputText value="Create/Edit"/></h1>
+                <h1>Créer un utilisateur pour utiliser le service web</h1>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Login:" for="login" />
                     <h:inputText id="login" value="#{userMB.user.login}" title="Login" />
                     <h:outputLabel value="Password:" for="password" />
-                    <h:inputText id="password" value="#{userMB.user.password}" title="Password" />
+                    <h:inputSecret  id="password" value="#{userMB.user.password}" title="Password" />
                     <h:outputLabel value="Confirmer votre password:" for="password" />
-                    <h:inputText id="passwordConfirmation" value="#{userMB.user.password}" title="Password" onblur="check()" />
+                    <h:inputSecret id="passwordConfirmation" value="#{userMB.user.password}" title="Password" onblur="check()" />
                 </h:panelGrid>
-                <h:commandButton action="#{userMB.createUser()}" value="Créer mon nouveau compte"/>
-                <label id="erreur"></label>
+                <h:commandButton id="btnCreate" action="#{userMB.newUser()}" value="Valider"/>
+                <label id="erreur" style="color: red"></label>
             </h:form>
         </f:view>
         <script>
             function check(){
                 if( ! (document.getElementById("password").value === document.getElementById("passwordConfirmation").value) ){
                     document.getElementById("erreur").value ="Passwords incohérents";
+                    document.getElementById("btnCreate").style("display:hidden");
+                }else{
+                    document.getElementById("btnCreate").style("display:block");
                 }
                     
             }

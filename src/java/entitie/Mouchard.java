@@ -23,29 +23,40 @@ public class Mouchard implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private User user;
+    private String ip;
     private CreditCard creditCard;
     private Date dateOperation;
     private boolean result;
+    private String description;
 
     public Mouchard() {
     }
 
-    public Mouchard( User user, CreditCard creditCard, Date dateOperation, boolean result) {
+    public Mouchard( String ip, CreditCard creditCard, Date dateOperation, boolean result) {
         
-        this.user = user;
+        this.ip = ip;
         this.creditCard = creditCard;
         this.dateOperation = dateOperation;
         this.result = result;
     }
-    
-    public User getUser() {
-        return user;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDescription(String description) {
+        this.description = description;
     }
+    
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+    
+    
 
     public CreditCard getCreditCard() {
         return creditCard;
@@ -104,7 +115,7 @@ public class Mouchard implements Serializable {
 
     @Override
     public String toString() {
-        return "Mouchard{" + "id=" + id + ", user=" + user + ", creditCard=" + creditCard + ", dateOperation=" + dateOperation + ", result=" + result + '}';
+        return "Mouchard{" + "id=" + id + ", user=" + ip + ", creditCard=" + creditCard + ", dateOperation=" + dateOperation + ", result=" + result + '}';
     }
 
     

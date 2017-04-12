@@ -13,6 +13,15 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <description>Navigation globale vers account</description>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>tonewaccount</from-outcome>
+            <to-view-id>/Account.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <description>Navigation globale vers home</description>
         <from-view-id>*</from-view-id>
         <navigation-case>

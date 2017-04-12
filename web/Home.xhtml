@@ -4,34 +4,21 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Token générateur</title>
     </h:head>
     <h:body>
         <div>
-            <h3>Bienvenue <h:outputLabel value="#{userMB.user.login}"</h3>
+            <h3>Bienvenue <h:outputLabel value="#{userMB.user.login}"/></h3>
         </div>
-        <f:view>
 
-
+            <h1>Votre token : </h1><h:outputText value="#{userMB.user.token}"/>
             <h:form>
-                <h1><h:outputText value="Create/Edit"/></h1>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Credit Card number:" for="number" />
-                    <h:inputText id="number" value="#{creditCardMB.creditCard.number}" title="Number" />
-                    <h:outputLabel value="Expiry Date :" for="expiryDate" />
-                    <h:inputText id="expiryDate" value="#{creditCardMB.creditCard.expiryDate}" title="ExpiryDate" />
-                    <h:outputLabel value="Code de vérification :" for="cn" />
-                    <h:inputText id="cn" value="#{creditCardMB.creditCard.cn}" title="Cn" />
-                    <h:outputLabel value="Type:" for="type" />
-                    <h:inputText id="type" value="#{creditCardMB.creditCard.type}" title="Type" />
-                </h:panelGrid>
+                
+                <p>
+                    Utiliser notre service web pour valider vos cartes de crédit.
+                </p>
+                <h:commandLink action="#{userMB.logout()}" value="Déconnecter vous"/>
             </h:form>
-        </f:view>
-
-        <!-- Les informations de la carte de crédit -->
-        <!-- Les informations de l'utilisateur -->
-        <!-- Entrer le token -->
-        <!-- Obtenir la réponse -->
     </h:body>
 </html>
 

@@ -28,19 +28,12 @@ public class CreditCard implements Serializable{
     private String expiryDate;
     private int cn;
     @Column(length = 20)
-    private String type;
-    private User user;
+    private String type; 
     
     public CreditCard() {
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
     
     public Long getId() {
         return id;
@@ -84,7 +77,7 @@ public class CreditCard implements Serializable{
 
     @Override
     public String toString() {
-        return "CreditCard{" + "id=" + id + ", number=" + number + ", expiryDate=" + expiryDate + ", cn=" + cn + ", type=" + type + ", user=" + user + '}';
+        return "CreditCard{" + "id=" + id + ", number=" + number + ", expiryDate=" + expiryDate + ", cn=" + cn + ", type=" + type + "}";
     }
 
     @Override
