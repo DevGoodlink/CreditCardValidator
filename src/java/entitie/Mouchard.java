@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -24,7 +26,9 @@ public class Mouchard implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String ip;
+    @ManyToOne
     private CreditCard creditCard;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOperation;
     private boolean result;
     private String description;
