@@ -19,6 +19,7 @@ import javax.xml.ws.handler.MessageContext;
 import model.CreditCardFacade;
 import model.MouchardFacade;
 import model.UserFacade;
+import tool.LuhForumla;
 
 @WebService(serviceName = "CreditCardWS")
 public class CreditCardWS {
@@ -90,14 +91,21 @@ public class CreditCardWS {
         lstu = userFacade.findAll();
         for(Object u : lstu){
             User uo=(User)u;
-            if(uo.getToken().equals(token))
-                if(entity.getCn()%2==0){
+            if(uo.getToken().equals(token)){
+                
+                if(LuhForumla.luhn(entity.getNumber(), entity.getCn())){//entity.getCn()%2==0){
                     mouchard.setResult(true);
                     mouchard.setDescription("carte valide");
                     this.mouchardFacade.create(mouchard);
                     return true;
                 }
-            mouchard.setDescription("token inconnu");
+            }else{
+                mouchard.setResult(false);
+                mouchard.setDescription("token inconnu");
+                this.mouchardFacade.create(mouchard);
+                return false;
+            }
+            
         }
         mouchard.setResult(false);
         mouchard.setDescription("carte invalide");

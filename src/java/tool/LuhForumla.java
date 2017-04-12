@@ -17,7 +17,7 @@ public class LuhForumla {
  * @param cn The check number for the card.
  * @return If the card is valid based on the Luhn Equation.
  */
-    public static boolean luhn (String c, char cn)
+    public static boolean luhn (String c, int cn)
     {
         String card = c;
         String checkString = "" + cn;
