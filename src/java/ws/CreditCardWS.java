@@ -23,20 +23,20 @@ import tool.LuhForumla;
 
 @WebService(serviceName = "CreditCardWS")
 public class CreditCardWS {
-    
+
     @Resource
     WebServiceContext wsContext;
-    
+
     @EJB
     private UserFacade userFacade;
 
     @EJB
     private MouchardFacade mouchardFacade;
 
-
     @EJB
     private CreditCardFacade ejbRef;// Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Web Service Operation")
+
     /*
     @WebMethod(operationName = "create")
     @Oneway
@@ -76,41 +76,42 @@ public class CreditCardWS {
     public int count() {
         return ejbRef.count();
     }
-*/
+     */
     @WebMethod(operationName = "validate")
     public boolean validate(@WebParam(name = "entity") CreditCard entity, @WebParam(name = "token") String token) {
+        if(entity.equals(null))return false;
         Mouchard mouchard = new Mouchard();
         mouchard.setDateOperation(new Date());
         mouchard.setCreditCard(entity);
         MessageContext mc = wsContext.getMessageContext();
-        HttpServletRequest req = (HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST); 
-        mouchard.setIp(req.getRemoteAddr()); 
+        HttpServletRequest req = (HttpServletRequest) mc.get(MessageContext.SERVLET_REQUEST);
+        mouchard.setIp(req.getRemoteAddr());
+        System.out.println("création credit card number: "+entity.getNumber()+" time "+ new Date());
         ejbRef.create(entity);
         List<User> lstu = new ArrayList();
-        
         lstu = userFacade.findAll();
-        for(Object u : lstu){
-            User uo=(User)u;
-            if(uo.getToken().equals(token)){
-                
-                if(LuhForumla.luhn(entity.getNumber(), entity.getCn())){//entity.getCn()%2==0){
+        for (User u : lstu) {
+            if (u.getToken().equals(token)) {
+                if (LuhForumla.luhn(entity.getNumber(), entity.getCn())) {//entity.getCn()%2==0){
                     mouchard.setResult(true);
+                    mouchard.setCreditCard(entity);
                     mouchard.setDescription("carte valide");
                     this.mouchardFacade.create(mouchard);
                     return true;
                 }
-            }else{
+            } else {
+                mouchard.setCreditCard(entity);
                 mouchard.setResult(false);
                 mouchard.setDescription("token inconnu");
                 this.mouchardFacade.create(mouchard);
                 return false;
             }
-            
         }
+        mouchard.setCreditCard(entity);
         mouchard.setResult(false);
         mouchard.setDescription("carte invalide");
         this.mouchardFacade.create(mouchard);
         return false;
     }
-    
+
 }
